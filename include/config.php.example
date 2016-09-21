@@ -1,0 +1,11 @@
+<?php
+global $magento_wsdl_service;
+global $magento_soap_user;
+global $magento_soap_password;
+
+
+$wsdl = '<Magento Install>index.php/api/v2_soap?wsdl=1';  //Put here your DOMAIN
+$magento_soap_user = '';                                  // USER of the soap
+$magento_soap_password = '';                              // PASSWORD of the soap
+
+ ?>
