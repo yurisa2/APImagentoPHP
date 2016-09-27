@@ -30,8 +30,6 @@ function magento_info()
 {
   $result = magento_obj()->magentoInfo(magento_session());
 
-// var_dump($result);
-
 return $result;
 }
 
@@ -39,9 +37,16 @@ function magento_catalogProductList()
 {
   $result = magento_obj()->catalogProductList(magento_session());
 
-var_dump($result);
+return $result;
 
 }
 
+function magento_catalogProductInfo($sku)
+{
+  $result = magento_obj()->catalogProductInfo(magento_session(),$sku);
+
+return $result;
+
+}
 
 ?>

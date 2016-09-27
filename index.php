@@ -7,6 +7,13 @@ require_once 'include/functions.php';
 
 echo '<pre>';
 
-magento_catalogProductList();
+// magento_info();
+
+// echo magento_session();
+
+// magento_catalogProductList();
+
+
+var_dump(magento_catalogProductInfo('EP-51-35051'));
 
  ?>
