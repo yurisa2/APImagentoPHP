@@ -92,11 +92,26 @@ function magento_catalogInventoryStockItemList($sku)
 
 function magento_product_summary($sku)
 {
-$return = array('name'=>magento_catalogProductInfo_name($sku),
-      'description'=> magento_catalogProductInfo_description($sku),
-      'short_description'=> magento_catalogProductInfo_short_description($sku),
-      'price'=> magento_catalogProductInfo_price($sku),
-      'qty_in_stock'=> magento_catalogInventoryStockItemList($sku));
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+$obj_mag = magento_obj();
+$ses_mag = $obj_mag->login($magento_soap_user,$magento_soap_password);
+
+$name = $obj_mag->catalogProductInfo($ses_mag,$sku)->name;
+$description = $obj_mag->catalogProductInfo($ses_mag,$sku)->description;
+$short_description = $obj_mag->catalogProductInfo($ses_mag,$sku)->short_description;
+$price = $obj_mag->catalogProductInfo($ses_mag,$sku)->price;
+$qty = $obj_mag->catalogInventoryStockItemList($ses_mag,array($sku))['0']->qty;
+
+$obj_mag->endSession($ses_mag);
+
+$return = array('name'=>$name,
+      'description'=> $description,
+      'short_description'=> $short_description,
+      'price'=> $price,
+      'qty_in_stock'=> $qty
+    );
 
 
 return $return;
