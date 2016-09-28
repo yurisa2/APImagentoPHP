@@ -49,4 +49,59 @@ return $result;
 
 }
 
+function magento_catalogProductInfo_name($sku)
+{
+  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->name;
+
+return $result;
+
+}
+
+function magento_catalogProductInfo_price($sku)
+{
+  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->price;
+
+return $result;
+
+}
+
+function magento_catalogProductInfo_description($sku)
+{
+  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->description;
+
+return $result;
+
+}
+
+function magento_catalogProductInfo_short_description($sku)
+{
+  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->short_description;
+
+return $result;
+
+}
+
+function magento_catalogInventoryStockItemList($sku)
+{
+  $sku_list = array($sku);
+  $result = magento_obj()->catalogInventoryStockItemList(magento_session(),$sku_list)['0']->qty;
+
+  return $result;
+
+}
+
+function magento_product_summary($sku)
+{
+$return = array('name'=>magento_catalogProductInfo_name($sku),
+      'description'=> magento_catalogProductInfo_description($sku),
+      'short_description'=> magento_catalogProductInfo_short_description($sku),
+      'price'=> magento_catalogProductInfo_price($sku),
+      'qty_in_stock'=> magento_catalogInventoryStockItemList($sku));
+
+
+return $return;
+}
+
+
+
 ?>

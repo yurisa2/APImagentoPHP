@@ -14,6 +14,13 @@ echo '<pre>';
 // magento_catalogProductList();
 
 
-var_dump(magento_catalogProductInfo('EP-51-35051'));
+// var_dump(magento_catalogProductInfo('EP-51-35051'));
+
+// var_dump(magento_catalogProductInfo_description('EP-51-35051'));
+
+
+// var_dump(magento_catalogInventoryStockItemList('EP-51-35051'));
+
+var_dump(magento_product_summary('EP-51-35051'));
 
  ?>
