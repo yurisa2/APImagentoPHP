@@ -90,6 +90,40 @@ function magento_catalogInventoryStockItemList($sku)
 
 }
 
+function magento_SalesOrders() {
+  $result = magento_obj()->salesOrderList(magento_session());
+
+  return $result;
+}
+
+//Lifting the last sales order and removing special characters of the last sales order
+function magento_lastSalesOrder()
+{
+
+  //Lifting the last sales order
+  $sales_order = magento_obj()->salesOrderList(magento_session());
+  $last_sales_order = end($sales_order);
+
+  //Removing special characters of the last sales order
+  $document = $last_sales_order->customer_taxvat;
+  $document_number = preg_replace('/\D/', '', $document);
+
+  //Counting the numbers of the document
+  $document_length = strlen($document_number);
+
+  if ($document_length == 11)
+  {
+    $result = "CPF";
+  }
+  if($document_length == 14)
+  {
+    $result = "CNPJ";
+  }
+
+  return $result;
+
+}
+
 function magento_product_summary($sku)
 {
   global $magento_soap_user;
