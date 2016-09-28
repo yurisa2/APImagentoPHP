@@ -101,6 +101,7 @@ $ses_mag = $obj_mag->login($magento_soap_user,$magento_soap_password);
 $name = $obj_mag->catalogProductInfo($ses_mag,$sku)->name;
 $description = $obj_mag->catalogProductInfo($ses_mag,$sku)->description;
 $short_description = $obj_mag->catalogProductInfo($ses_mag,$sku)->short_description;
+$weight = $obj_mag->catalogProductInfo($ses_mag,$sku)->weight;
 $price = $obj_mag->catalogProductInfo($ses_mag,$sku)->price;
 $qty = $obj_mag->catalogInventoryStockItemList($ses_mag,array($sku))['0']->qty;
 
@@ -109,6 +110,7 @@ $obj_mag->endSession($ses_mag);
 $return = array('name'=>$name,
       'description'=> $description,
       'short_description'=> $short_description,
+      'weight'=> $weight,
       'price'=> $price,
       'qty_in_stock'=> $qty
     );
