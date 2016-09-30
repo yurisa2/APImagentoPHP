@@ -118,10 +118,17 @@ function magento_lastSalesOrder()
 
 }
 
-function magento_catalogInventoryStockItemUpdate()
+function magento_catalogInventoryStockItemUpdate($sku,$qty)
 {
-  $return = magento_obj()->catalogInventoryStockItemUpdate(magento_session());
+$mod = array(
+ 'qty' => $qty
+
+
+);
+
   
+  $return = magento_obj()->catalogInventoryStockItemUpdate(magento_session(),$sku,$mod);
+
   return $return;
 }
 
