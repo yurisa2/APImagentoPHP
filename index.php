@@ -26,6 +26,6 @@ echo '<pre>';
 
 //var_dump(magento_product_summary('EP-51-35051'));
 
-var_dump(magento_SalesOrders());
+var_dump(magento_catalogInventoryStockItemUpdate());
 
 ?>

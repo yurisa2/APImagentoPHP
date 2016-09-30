@@ -91,9 +91,9 @@ function magento_catalogInventoryStockItemList($sku)
 }
 
 function magento_SalesOrders() {
-  $result = magento_obj()->salesOrderList(magento_session());
+  $return = magento_obj()->salesOrderList(magento_session());
 
-  return $result;
+  return $return;
 }
 
 //Lifting the last sales order and removing special characters of the last sales order
@@ -111,17 +111,18 @@ function magento_lastSalesOrder()
   //Counting the numbers of the document
   $document_length = strlen($document_number);
 
-  if ($document_length == 11)
-  {
-    $result = "CPF";
-  }
-  if($document_length == 14)
-  {
-    $result = "CNPJ";
-  }
+  //Variables for array of informations about the sales order - not conclused
+  $name = $last_sales_order->shipping_name;
 
-  return $result;
+  return $name;
 
+}
+
+function magento_catalogInventoryStockItemUpdate()
+{
+  $return = magento_obj()->catalogInventoryStockItemUpdate(magento_session());
+  
+  return $return;
 }
 
 function magento_product_summary($sku)
