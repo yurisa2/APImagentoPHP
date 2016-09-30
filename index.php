@@ -6,7 +6,7 @@ ini_set('xdebug.var_display_max_depth', 5);
 ini_set('xdebug.var_display_max_children', 350);
 ini_set('xdebug.var_display_max_data', 1024);
 
-require_once 'include/functions.php';
+require_once 'include/all_include.php';
 
 echo '<pre>';
 
@@ -26,6 +26,6 @@ echo '<pre>';
 
 //var_dump(magento_product_summary('EP-51-35051'));
 
-var_dump(magento_catalogInventoryStockItemUpdate('EP-51-35051','999'));
+var_dump(magento_catalogInventoryStockItemUpdate('EP-51-35051','777'));
 
 ?>
