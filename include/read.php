@@ -77,10 +77,38 @@ function magento_lastSalesOrder()
   //Counting the numbers of the document
   $document_length = strlen($document_number);
 
+  //If document length was equality 14 is cnpj
+  if ($document_length == 14) {
+    $cnpj = $document_number;
+  }
+
+  //If document length was equality 11 is cpf
+  if ($document_length == 11) {
+    $cpf = $document_length;
+  }
+
   //Variables for array of informations about the sales order - not conclused
   $name = $last_sales_order->shipping_name;
+  $date_sale_order = $last_sales_order->created_at;
+  $free_shipping_sale = $last_sales_order->subtotal;
+  $total_price = $last_sales_order->grand_total;
+  if($cnpj!='') {
+    $document_user = $cnpj;
+  }
+  if($cpf!='') {
+    $document_user = $cpf;
+  }
 
-  return $name;
+  $return = array('name'=>$name,
+        'document_user'=>$document_user,
+        'date_sale_order'=>$date_sale_order,
+        'free_shipping_sale'=>$free_shipping_sale,
+        'total_price'=>$total_price
+    );
+  
+
+
+  return $document_number;
 
 }
 
