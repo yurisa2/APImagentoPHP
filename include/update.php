@@ -12,13 +12,15 @@ function magento_catalogInventoryStockItemUpdate($sku,$qty)
 
 function magento_catalogProductUpdate($sku,$mod)
 {
+	$data_product_mercosistem = write_product_mercosistem_magento($sku);
+
 	$mod = array(
-		'name' => "sa2 consultoria",
-		'description' => "Aqui é a descrição do produto",
-		'short_description' => "Aqui é a descrição curta do produto",
-		'weight' => "10",
-		'status' => "1",
-		'price' => "10"
+		'name' => $data_product_mercosistem['name'],
+		'description' => $data_product_mercosistem['description'],
+		'short_description' => $data_product_mercosistem['short_description'],
+		'weight' => $data_product_mercosistem['weight'],
+		'price' => $data_product_mercosistem['price'],
+		'qty_in_stock' => $data_product_mercosistem['qty_in_stock']
 	);
 
 	$return = magento_obj()->catalogProductUpdate(magento_session(),$sku,$mod);
