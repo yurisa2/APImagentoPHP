@@ -47,15 +47,16 @@ $mod = array(
 );
 */
 
-	$mod_update = [];
-	$mod_update['name'] = $mod['name'];
-	$mod_update['description'] = $mod['description'];
-	$mod_update['short_description'] = $mod['short_description'];
-	$mod_update['weight'] = $mod['weight'];
-	$mod_update['price'] = $mod['price'];
+	if(!empty($mod)) {
+		$mod_update = [];
+		$mod_update['name'] = $mod['name'];
+		$mod_update['description'] = $mod['description'];
+		$mod_update['short_description'] = $mod['short_description'];
+		$mod_update['weight'] = $mod['weight'];
+		$mod_update['price'] = $mod['price'];
 
-
-	$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
+		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
+	}
 
 
 
@@ -65,13 +66,13 @@ $mod = array(
 
 	$obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod_qty);
 
-	if($update_product == true) {
-		$return = true;
+	if($update_product) {
+		$return = $mod_update;
 	} else {
 		$return = false;
 	}
 
-	return $mod_update['weight'];
+	return $return;
 
 }
 
