@@ -58,16 +58,22 @@ $mod = array(
 		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
 	}
 
-
-
 	$mod_qty = array(
 		'qty' => $mod['qty_in_stock']
 	);
 
+	$mod_update_return = [];
+	$mod_update_return['name'] = $mod['name'];
+	$mod_update_return['description'] = $mod['description'];
+	$mod_update_return['short_description'] = $mod['short_description'];
+	$mod_update_return['weight'] = $mod['weight'];
+	$mod_update_return['price'] = $mod['price'];
+	$mod_update_return['qty_in_stock'] = $mod['qty_in_stock'];
+
 	$obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod_qty);
 
-	if($update_product) {
-		$return = $mod_update;
+	if(isset($update_product)) {
+		$return = $mod_update_return;
 	} else {
 		$return = false;
 	}

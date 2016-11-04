@@ -89,9 +89,12 @@ function magento_lastSalesOrder()
 
   //Variables for array of informations about the sales order - not conclused
   $name = $last_sales_order->shipping_name;
+  $email = $last_sales_order->customer_email;
+  $cep = preg_replace('/\D/', '', $last_sales_order->postcode);
   $date_sale_order = $last_sales_order->created_at;
   $free_shipping_sale = $last_sales_order->subtotal;
   $total_price = $last_sales_order->grand_total;
+
   if($cnpj) {
     $document_user = $cnpj;
   }
@@ -101,9 +104,11 @@ function magento_lastSalesOrder()
 
   $return = array('name'=>$name,
         'document_user'=>$document_user,
+        'email'=>$email,
         'date_sale_order'=>$date_sale_order,
         'free_shipping_sale'=>$free_shipping_sale,
-        'total_price'=>$total_price
+        'total_price'=>$total_price,
+        'cep'=>$cep
     );
   
 
