@@ -117,6 +117,36 @@ function magento_lastSalesOrder()
 
 }
 
+function magento_customerCustomerList($id)
+{
+  $obj_mag = magento_obj()->customerAddressList(magento_session(), $id);
+  $obj_mag_email = magento_obj()->customerCustomerInfo(magento_session(), $id);
+  $obj_mag = $obj_mag['0'];
+
+  $name = $obj_mag->firstname." ".$obj_mag->lastname;
+  $email = $obj_mag_email->email;
+  $document = preg_replace('/\D/', '',$obj_mag_email->taxvat);
+  $city = $obj_mag->city;
+  $region = $obj_mag->region;
+  $postcode = preg_replace('/\D/', '',$obj_mag->postcode);
+  $street = $obj_mag->street;
+  $phone = preg_replace('/\D/', '',$obj_mag->telephone);
+
+
+  $return = array(
+          'name' => $name,
+          'email' => $email,
+          'document' => $document,
+          'city' => $city,
+          'region' => $region,
+          'postcode' => $postcode,
+          'street' => $street,
+          'phone' => $phone
+    );
+
+  return $return;
+}
+
 
 function magento_product_summary($sku)
 {
