@@ -90,6 +90,7 @@ function magento_lastSalesOrder()
   //Variables for array of informations about the sales order - not conclused
   $name = $last_sales_order->shipping_name;
   $email = $last_sales_order->customer_email;
+  $costumer_id = $last_sales_order->customer_id;
   $cep = preg_replace('/\D/', '', $last_sales_order->postcode);
   $date_sale_order = $last_sales_order->created_at;
   $free_shipping_sale = $last_sales_order->subtotal;
@@ -105,6 +106,7 @@ function magento_lastSalesOrder()
   $return = array('name'=>$name,
         'document_user'=>$document_user,
         'email'=>$email,
+        'costumer_id' => $costumer_id,
         'date_sale_order'=>$date_sale_order,
         'free_shipping_sale'=>$free_shipping_sale,
         'total_price'=>$total_price,
@@ -119,6 +121,7 @@ function magento_lastSalesOrder()
 
 function magento_customerCustomerList($id)
 {
+
   $obj_mag = magento_obj()->customerAddressList(magento_session(), $id);
   $obj_mag_email = magento_obj()->customerCustomerInfo(magento_session(), $id);
   $obj_mag = $obj_mag['0'];
