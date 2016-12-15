@@ -47,7 +47,7 @@ $mod = array(
 );
 */
 
-	if(!empty($mod)) {
+	/*if(!empty($mod)) {
 		$mod_update = [];
 		$mod_update['name'] = $mod['name'];
 		$mod_update['description'] = $mod['description'];
@@ -56,21 +56,49 @@ $mod = array(
 		$mod_update['price'] = $mod['price'];
 
 		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
+	}*/
+
+	if($mod) {
+		$mod_update = [];
+		$mod_update_return = [];
+
+		if(!empty($mod['name'])) {
+			$mod_update['name'] = $mod['name'];
+			$mod_update_return['name'] = $mod['name'];
+		}
+
+		if(!empty($mod['description'])) {
+			$mod_update['description'] = $mod['description'];
+			$mod_update_return['description'] = $mod['description'];
+		}
+
+		if(!empty($mod['short_description'])) {
+			$mod_update['short_description'] = $mod['short_description'];
+			$mod_update_return['short_description'] = $mod['short_description'];
+		}
+
+		if(!empty($mod['weight'])) {
+			$mod_update['weight'] = $mod['weight'];
+			$mod_update_return['weight'] = $mod['weight'];
+		}
+
+		if(!empty($mod['price'])) {
+			$mod_update['price'] = $mod['price'];
+			$mod_update_return['price'] = $mod['price'];
+		}
+
+		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
+	
+		if(!empty($mod['qty_in_stock'])) {
+			$mod_qty = array(
+				'qty' => $mod['qty_in_stock']
+			);
+			$mod_update_return['qty_in_stock'] = $mod['qty_in_stock'];
+			$obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod_qty);
+		}
+
 	}
 
-	$mod_qty = array(
-		'qty' => $mod['qty_in_stock']
-	);
-
-	$mod_update_return = [];
-	$mod_update_return['name'] = $mod['name'];
-	$mod_update_return['description'] = $mod['description'];
-	$mod_update_return['short_description'] = $mod['short_description'];
-	$mod_update_return['weight'] = $mod['weight'];
-	$mod_update_return['price'] = $mod['price'];
-	$mod_update_return['qty_in_stock'] = $mod['qty_in_stock'];
-
-	$obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod_qty);
 
 	if(isset($update_product)) {
 		$return = $mod_update_return;
