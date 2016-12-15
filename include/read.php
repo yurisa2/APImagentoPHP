@@ -1,7 +1,12 @@
 <?php
 function magento_catalogProductList()
 {
-  $result = magento_obj()->catalogProductList(magento_session());
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+  $result = $obj_magento->catalogProductList($session);
 
 return $result;
 
@@ -9,7 +14,12 @@ return $result;
 
 function magento_catalogProductInfo($sku)
 {
-  $result = magento_obj()->catalogProductInfo(magento_session(),$sku);
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+  $result = $obj_magento->catalogProductInfo($session,$sku);
 
 return $result;
 
@@ -17,7 +27,13 @@ return $result;
 
 function magento_catalogProductInfo_name($sku)
 {
-  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->name;
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
+  $result = $obj_magento->catalogProductInfo($session,$sku)->name;
 
 return $result;
 
@@ -25,7 +41,13 @@ return $result;
 
 function magento_catalogProductInfo_price($sku)
 {
-  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->price;
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
+  $result = $obj_magento->catalogProductInfo($session,$sku)->price;
 
 return $result;
 
@@ -33,7 +55,13 @@ return $result;
 
 function magento_catalogProductInfo_description($sku)
 {
-  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->description;
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
+  $result = $obj_magento->catalogProductInfo($session,$sku)->description;
 
 return $result;
 
@@ -41,7 +69,13 @@ return $result;
 
 function magento_catalogProductInfo_short_description($sku)
 {
-  $result = magento_obj()->catalogProductInfo(magento_session(),$sku)->short_description;
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
+  $result = $obj_magento->catalogProductInfo($session,$sku)->short_description;
 
 return $result;
 
@@ -49,15 +83,27 @@ return $result;
 
 function magento_catalogInventoryStockItemList($sku)
 {
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
   $sku_list = array($sku);
-  $result = magento_obj()->catalogInventoryStockItemList(magento_session(),$sku_list)['0']->qty;
+  $result = $obj_magento->catalogInventoryStockItemList($session,$sku_list)['0']->qty;
 
   return $result;
 
 }
 
 function magento_SalesOrders() {
-  $return = magento_obj()->salesOrderList(magento_session());
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
+  $return = $obj_magento->salesOrderList($session);
 
   return $return;
 }
@@ -65,9 +111,14 @@ function magento_SalesOrders() {
 //Lifting the last sales order and removing special characters of the last sales order
 function magento_lastSalesOrder()
 {
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
 
   //Lifting the last sales order
-  $sales_order = magento_obj()->salesOrderList(magento_session());
+  $sales_order = $obj_magento->salesOrderList($session);
   $last_sales_order = end($sales_order);
 
   //Removing special characters of the last sales order
@@ -112,7 +163,7 @@ function magento_lastSalesOrder()
         'total_price'=>$total_price,
         'cep'=>$cep
     );
-  
+
 
 
   return $return;
@@ -121,9 +172,14 @@ function magento_lastSalesOrder()
 
 function magento_customerCustomerList($id)
 {
+  global $magento_soap_user;
+  global $magento_soap_password;
 
-  $obj_mag = magento_obj()->customerAddressList(magento_session(), $id);
-  $obj_mag_email = magento_obj()->customerCustomerInfo(magento_session(), $id);
+  $obj_magento = magento_obj();
+  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+
+  $obj_mag = $obj_magento->customerAddressList($session, $id);
+  $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id);
   $obj_mag = $obj_mag['0'];
 
   $name = $obj_mag->firstname." ".$obj_mag->lastname;
