@@ -5,7 +5,7 @@ function magento_catalogInventoryStockItemUpdate($sku,$qty)
   global $magento_soap_password;
 
   $obj_magento = magento_obj();
-  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+  $session = magento_session();
 
 	$mod = array(
 		'qty' => $qty
@@ -22,7 +22,7 @@ function magento_catalogProductUpdate($sku,$mod)
   global $magento_soap_password;
 
   $obj_magento = magento_obj();
-  $session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+  $session = magento_session();
 
 	/* $mod Array template
 	$mod = array(
@@ -45,7 +45,7 @@ function magento_catalogProductUpdate_and_stock($sku,$mod)
   global $magento_soap_password;
 
 	$obj_magento = magento_obj();
-	$session = $obj_magento->login($magento_soap_user,$magento_soap_password);
+	$session = magento_session();
 
 /* $mod Array template
 $mod = array(
@@ -107,7 +107,6 @@ $mod = array(
 			$mod_update_return['qty_in_stock'] = $mod['qty_in_stock'];
 			$obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod_qty);
 		}
-
 	}
 
 
@@ -118,7 +117,6 @@ $mod = array(
 	}
 
 	return $return;
-
 }
 
 //desmontar o array para comparar os valores
