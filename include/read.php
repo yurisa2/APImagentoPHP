@@ -204,15 +204,15 @@ function magento_product_summary($sku)
   global $magento_soap_user;
   global $magento_soap_password;
 
-$obj_mag = magento_obj();
-$ses_mag = magento_session();
+  $obj_magento = magento_obj();
+  $session = magento_session();
 
-$name = $obj_mag->catalogProductInfo($ses_mag,$sku)->name;
-$description = $obj_mag->catalogProductInfo($ses_mag,$sku)->description;
-$short_description = $obj_mag->catalogProductInfo($ses_mag,$sku)->short_description;
-$weight = $obj_mag->catalogProductInfo($ses_mag,$sku)->weight;
-$price = $obj_mag->catalogProductInfo($ses_mag,$sku)->price;
-$qty = $obj_mag->catalogInventoryStockItemList($ses_mag,array($sku))['0']->qty;
+$name = $obj_magento ->catalogProductInfo($session,$sku)->name;
+$description = $obj_magento ->catalogProductInfo($session,$sku)->description;
+$short_description = $obj_magento ->catalogProductInfo($session,$sku)->short_description;
+$weight = $obj_magento ->catalogProductInfo($session,$sku)->weight;
+$price = $obj_magento ->catalogProductInfo($session,$sku)->price;
+$qty = $obj_magento ->catalogInventoryStockItemList($session,array($sku))['0']->qty;
 
 $return = array('name'=>$name,
       'description'=> $description,
