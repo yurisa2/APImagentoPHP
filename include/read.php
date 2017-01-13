@@ -207,6 +207,7 @@ function magento_product_summary($sku)
   $obj_magento = magento_obj();
   $session = magento_session();
 
+$product_id = $obj_magento ->catalogProductInfo($session,$sku)->product_id;
 $name = $obj_magento ->catalogProductInfo($session,$sku)->name;
 $description = $obj_magento ->catalogProductInfo($session,$sku)->description;
 $short_description = $obj_magento ->catalogProductInfo($session,$sku)->short_description;
@@ -214,7 +215,9 @@ $weight = $obj_magento ->catalogProductInfo($session,$sku)->weight;
 $price = $obj_magento ->catalogProductInfo($session,$sku)->price;
 $qty = $obj_magento ->catalogInventoryStockItemList($session,array($sku))['0']->qty;
 
-$return = array('name'=>$name,
+$return = array(
+      'product_id'=>$product_id,
+      'name'=>$name,
       'description'=> $description,
       'short_description'=> $short_description,
       'weight'=> $weight,
