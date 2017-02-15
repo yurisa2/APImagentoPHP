@@ -37,7 +37,7 @@ function magento_session()
 
   // var_dump($file_array); //DEBUG
 
-  if($file_array->session < time() - 3000) //Default value for Magento API session is 3600 - I should put that as a config... Think about it
+  if($file_array->time < time() - 3000) //Default value for Magento API session is 3600 - I should put that as a config... Think about it
   {
     $session = magento_obj()->login($magento_soap_user,$magento_soap_password);
 
