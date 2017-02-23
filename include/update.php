@@ -42,7 +42,7 @@ function magento_catalogProductUpdate($sku,$mod)
 function magento_catalogProductUpdate_and_stock($sku,$mod)
 {
 	global $magento_soap_user;
-  global $magento_soap_password;
+ 	global $magento_soap_password;
 
 	$obj_magento = magento_obj();
 	$session = magento_session();
@@ -57,17 +57,6 @@ $mod = array(
 	'qty_in_stock' => $data_product['qty_in_stock']
 );
 */
-
-	/*if(!empty($mod)) {
-		$mod_update = [];
-		$mod_update['name'] = $mod['name'];
-		$mod_update['description'] = $mod['description'];
-		$mod_update['short_description'] = $mod['short_description'];
-		$mod_update['weight'] = $mod['weight'];
-		$mod_update['price'] = $mod['price'];
-
-		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
-	}*/
 
 	if($mod) {
 		$mod_update = [];
@@ -93,9 +82,14 @@ $mod = array(
 			$mod_update_return['weight'] = $mod['weight'];
 		}
 
-		if(!empty($mod['price'])) {
-			$mod_update['price'] = $mod['price'];
-			$mod_update_return['price'] = $mod['price'];
+		if(!empty($mod['price1'])) {
+			$mod_update['price'] = $mod['price1'];
+			$mod_update_return['price'] = $mod['price1'];
+		}
+
+		if(!empty($mod['tier_price'])) {
+			$mod_update['tier_price'] = $mod['tier_price'];
+			$mod_update_return['tier_price'] = $mod['tier_price'];
 		}
 
 		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
