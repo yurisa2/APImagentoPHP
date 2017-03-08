@@ -82,14 +82,9 @@ $mod = array(
 			$mod_update_return['weight'] = $mod['weight'];
 		}
 
-		if(!empty($mod['price1'])) {
-			$mod_update['price'] = $mod['price1'];
-			$mod_update_return['price'] = $mod['price1'];
-		}
-
-		if(!empty($mod['tier_price'])) {
-			$mod_update['tier_price'] = $mod['tier_price'];
-			$mod_update_return['tier_price'] = $mod['tier_price'];
+		if(!empty($mod['price'])) {
+			$mod_update['price'] = $mod['price'];
+			$mod_update_return['price'] = $mod['price'];
 		}
 
 		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
