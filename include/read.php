@@ -192,7 +192,7 @@ function magento_customerCustomerList($id)
           'region' => $region,
           'postcode' => $postcode,
           'street' => $street,
-          'phone' => $phone
+          'phone' => $phone,
     );
 
   return $return;

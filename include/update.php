@@ -89,6 +89,11 @@ $mod = array(
 
 		$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
 
+		$mod_update['tier_price'] = $mod['tier_price'];
+		$mod_update_return['tier_price'] = $mod['tier_price'];
+
+		$update_tier_price = $obj_magento->catalogProductAttributeTierPriceUpdate($session,$sku, $mod_update['tier_price']);
+
 		if(!empty($mod['qty_in_stock'])) {
 			$mod_qty = array(
 				'qty' => $mod['qty_in_stock']
