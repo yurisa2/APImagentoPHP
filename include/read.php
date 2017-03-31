@@ -156,10 +156,11 @@ function magento_lastSalesOrder()
         'total_price'=>$total_price,
         'cep'=>$cep
     );
-
-
-
   return $return;
+}
+
+function magento_lastSalesOrderIdClient() {
+  return magento_lastSalesOrder()['costumer_id'];
 }
 
 function magento_customerCustomerList($id)
