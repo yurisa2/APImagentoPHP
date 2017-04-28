@@ -132,6 +132,7 @@ function magento_lastSalesOrder()
   }
 
   //Variables for array of informations about the sales order - not conclused
+  $id = $last_sales_order->increment_id;
   $name = $last_sales_order->shipping_name;
   $email = $last_sales_order->customer_email;
   $costumer_id = $last_sales_order->customer_id;
@@ -147,7 +148,8 @@ function magento_lastSalesOrder()
     $document_user = $cpf;
   }
 
-  $return = array('name'=>$name,
+  $return = array('id'=>$increment_id,
+        'name'=>$name,
         'document_user'=>$document_user,
         'email'=>$email,
         'costumer_id' => $costumer_id,
@@ -156,11 +158,10 @@ function magento_lastSalesOrder()
         'total_price'=>$total_price,
         'cep'=>$cep
     );
-  return $return;
-}
 
-function magento_lastSalesOrderIdClient() {
-  return magento_lastSalesOrder()['costumer_id'];
+
+
+  return $return;
 }
 
 function magento_customerCustomerList($id)
