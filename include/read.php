@@ -148,7 +148,7 @@ function magento_lastSalesOrder()
     $document_user = $cpf;
   }
 
-  $return = array('id'=>$increment_id,
+  $return = array('id'=>$id,
         'name'=>$name,
         'document_user'=>$document_user,
         'email'=>$email,
