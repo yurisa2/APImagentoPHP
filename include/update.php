@@ -113,6 +113,24 @@ $mod = array(
 	return $return;
 }
 
-//desmontar o array para comparar os valores
+//changing order status
+function magento_salesOrderAddComment($mod)
+{
+	global $magento_soap_user;
+ 	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$orderIncrementId = $mod['orderIncrementId'];
+	$status = $mod['status'];
+	$comment = $mod['comment'];
+	$notify = null;
+
+
+	$return = $obj_magento->salesOrderAddComment($session, $orderIncrementId, $status, $comment, $notify);
+
+	return $return;
+}
 
 ?>
