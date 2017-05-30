@@ -164,6 +164,28 @@ function magento_lastSalesOrder()
   return $return;
 }
 
+function magento_salesOrderInfo($increment_id)
+{
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+
+  return $obj_magento->salesOrderInfo($session, $increment_id);
+}
+
+function magento_customerCustomerInfo($customer_id)
+{
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+
+  return $obj_magento->customerCustomerInfo($session, $customer_id);
+}
+
 function magento_customerCustomerList($id)
 {
   global $magento_soap_user;
