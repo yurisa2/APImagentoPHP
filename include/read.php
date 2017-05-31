@@ -164,6 +164,26 @@ function magento_lastSalesOrder()
   return $return;
 }
 
+//return the taxvat of customer by increment_id
+function documentUserMagento($increment_id) {
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+
+  $customer_id = magento_salesOrderInfo($increment_id)->customer_id;
+
+  $document = magento_customerCustomerInfo($customer_id)->taxvat;
+  $document = preg_replace('/\D/', '', $document);
+
+  if($document == false || $document == '' || is_null($document)) {
+    return false;
+  }
+
+  return $document;
+}
+
 function magento_salesOrderInfo($increment_id)
 {
   global $magento_soap_user;
