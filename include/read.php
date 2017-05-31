@@ -164,6 +164,23 @@ function magento_lastSalesOrder()
   return $return;
 }
 
+//return customer_id of sale order by increment_id
+function customer_id_order($increment_id) {
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+
+  $customer_id = magento_salesOrderInfo($increment_id)->customer_id;
+
+  if($customer_id == false || $customer_id == '' || is_null($customer_id)) {
+    return false;
+  }
+
+  return $customer_id;
+}
+
 //return the taxvat of customer by increment_id
 function documentUserMagento($increment_id) {
   global $magento_soap_user;
@@ -172,7 +189,7 @@ function documentUserMagento($increment_id) {
   $obj_magento = magento_obj();
   $session = magento_session();
 
-  $customer_id = magento_salesOrderInfo($increment_id)->customer_id;
+  $customer_id = customer_id_order($increment_id);
 
   $document = magento_customerCustomerInfo($customer_id)->taxvat;
   $document = preg_replace('/\D/', '', $document);
