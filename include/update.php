@@ -7,8 +7,12 @@ function magento_catalogInventoryStockItemUpdate($sku,$qty)
   $obj_magento = magento_obj();
   $session = magento_session();
 
+  $is_in_stock = 1;
+  if($qty <= 0) $is_in_stock = 0;
+
 	$mod = array(
-		'qty' => $qty
+		'qty' => $qty,
+		'is_in_stock' => $is_in_stock
 	);
 
 	$return = $obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod);
@@ -95,8 +99,13 @@ $mod = array(
 		$update_tier_price = $obj_magento->catalogProductAttributeTierPriceUpdate($session,$sku, $mod_update['tier_price']);
 
 		if(!empty($mod['qty_in_stock'])) {
+			$qty = $mod['qty_in_stock'];
+			$is_in_stock = 1;
+  			if($qty <= 0) $is_in_stock = 0;
+
 			$mod_qty = array(
-				'qty' => $mod['qty_in_stock']
+				'qty' => $qty,
+				'is_in_stock' => $is_in_stock
 			);
 			$mod_update_return['qty_in_stock'] = $mod['qty_in_stock'];
 			$obj_magento->catalogInventoryStockItemUpdate($session,$sku,$mod_qty);

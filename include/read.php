@@ -84,7 +84,7 @@ function magento_catalogInventoryStockItemList($sku)
   $session = magento_session();
 
   $sku_list = array($sku);
-  $result = $obj_magento->catalogInventoryStockItemList($session,$sku_list)['0']->qty;
+  $result = $obj_magento->catalogInventoryStockItemList($session,$sku_list);
 
   return $result;
 }
