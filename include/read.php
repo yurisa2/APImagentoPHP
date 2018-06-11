@@ -8,7 +8,7 @@ function magento_catalogProductList()
   $session = magento_session();
   $result = $obj_magento->catalogProductList($session);
 
-return $result;
+  return $result;
 }
 
 function magento_catalogProductInfo($sku)
@@ -20,7 +20,7 @@ function magento_catalogProductInfo($sku)
   $session = magento_session();
   $result = $obj_magento->catalogProductInfo($session,$sku);
 
-return $result;
+  return $result;
 }
 
 function magento_catalogProductInfo_name($sku)
@@ -33,7 +33,7 @@ function magento_catalogProductInfo_name($sku)
 
   $result = $obj_magento->catalogProductInfo($session,$sku)->name;
 
-return $result;
+  return $result;
 }
 
 function magento_catalogProductInfo_price($sku)
@@ -46,7 +46,7 @@ function magento_catalogProductInfo_price($sku)
 
   $result = $obj_magento->catalogProductInfo($session,$sku)->price;
 
-return $result;
+  return $result;
 }
 
 function magento_catalogProductInfo_description($sku)
@@ -59,7 +59,7 @@ function magento_catalogProductInfo_description($sku)
 
   $result = $obj_magento->catalogProductInfo($session,$sku)->description;
 
-return $result;
+  return $result;
 }
 
 function magento_catalogProductInfo_short_description($sku)
@@ -72,7 +72,7 @@ function magento_catalogProductInfo_short_description($sku)
 
   $result = $obj_magento->catalogProductInfo($session,$sku)->short_description;
 
-return $result;
+  return $result;
 }
 
 function magento_catalogInventoryStockItemList($sku)
@@ -149,19 +149,19 @@ function magento_lastSalesOrder()
   }
 
   $return = array('id'=>$id,
-        'name'=>$name,
-        'document_user'=>$document_user,
-        'email'=>$email,
-        'costumer_id' => $costumer_id,
-        'date_sale_order'=>$date_sale_order,
-        'free_shipping_sale'=>$free_shipping_sale,
-        'total_price'=>$total_price,
-        'cep'=>$cep
-    );
+  'name'=>$name,
+  'document_user'=>$document_user,
+  'email'=>$email,
+  'costumer_id' => $costumer_id,
+  'date_sale_order'=>$date_sale_order,
+  'free_shipping_sale'=>$free_shipping_sale,
+  'total_price'=>$total_price,
+  'cep'=>$cep
+);
 
 
 
-  return $return;
+return $return;
 }
 
 //return customer_id of sale order by increment_id
@@ -246,15 +246,15 @@ function magento_customerCustomerList($id)
 
 
   $return = array(
-          'name' => $name,
-          'email' => $email,
-          'document' => $document,
-          'city' => $city,
-          'region' => $region,
-          'postcode' => $postcode,
-          'street' => $street,
-          'phone' => $phone,
-    );
+    'name' => $name,
+    'email' => $email,
+    'document' => $document,
+    'city' => $city,
+    'region' => $region,
+    'postcode' => $postcode,
+    'street' => $street,
+    'phone' => $phone,
+  );
 
   return $return;
 }
@@ -268,26 +268,50 @@ function magento_product_summary($sku)
   $obj_magento = magento_obj();
   $session = magento_session();
 
-$product_id = $obj_magento ->catalogProductInfo($session,$sku)->product_id;
-$name = $obj_magento ->catalogProductInfo($session,$sku)->name;
-$description = $obj_magento ->catalogProductInfo($session,$sku)->description;
-$short_description = $obj_magento ->catalogProductInfo($session,$sku)->short_description;
-$weight = $obj_magento ->catalogProductInfo($session,$sku)->weight;
-$price = $obj_magento ->catalogProductInfo($session,$sku)->price;
-$qty = $obj_magento ->catalogInventoryStockItemList($session,array($sku))['0']->qty;
+  $product_id = $obj_magento ->catalogProductInfo($session,$sku)->product_id;
+  $name = $obj_magento ->catalogProductInfo($session,$sku)->name;
+  $description = $obj_magento ->catalogProductInfo($session,$sku)->description;
+  $short_description = $obj_magento ->catalogProductInfo($session,$sku)->short_description;
+  $weight = $obj_magento ->catalogProductInfo($session,$sku)->weight;
+  $price = $obj_magento ->catalogProductInfo($session,$sku)->price;
+  $qty = $obj_magento ->catalogInventoryStockItemList($session,array($sku))['0']->qty;
 
-$return = array(
-      'product_id'=>$product_id,
-      'name'=>$name,
-      'description'=> $description,
-      'short_description'=> $short_description,
-      'weight'=> $weight,
-      'price'=> $price,
-      'qty_in_stock'=> $qty
+
+  $medialist = $obj_magento->catalogProductAttributeMediaList($session,$sku);
+  $media_array = array();
+  foreach ($medialist as $key => $value) {
+    $media_array[] = array(
+      'url' => $value->url,
+      'position' => $value->position,
+      'types' => $value->types
     );
+  }
+
+  $return = array(
+    'product_id'=>$product_id,
+    'name'=>$name,
+    'description'=> $description,
+    'short_description'=> $short_description,
+    'weight'=> $weight,
+    'price'=> $price,
+    'qty_in_stock'=> $qty,
+    'media' => $media_array
+  );
 
 
-return $return;
+  return $return;
+}
+
+function magento_shoppingCartProductList($cart_id)
+{
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+  $result = $obj_magento->shoppingCartProductList($session,$cart_id);
+
+  return $result;
 }
 
 
