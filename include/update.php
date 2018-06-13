@@ -204,4 +204,42 @@ function magento_shoppingCartCustomerAddresses($ord_id,$billing)
 	return $return;
 }
 
+function magento_shoppingCartShippingMethod($ord_id)
+{
+	global $magento_soap_user;
+	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$return =  $obj_magento->shoppingCartShippingMethod($session, $ord_id, 'freeshipping_freeshipping');
+
+	return $return;
+}
+
+function magento_shoppingCartPaymentMethod($ord_id, $payment){
+	global $magento_soap_user;
+	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$return =  $obj_magento->shoppingCartPaymentMethod($session, $ord_id, $payment);
+
+	return $return;
+}
+
+function magento_shoppingCartOrder($ord_id)
+{
+	global $magento_soap_user;
+	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$return =  $obj_magento->shoppingCartOrder($session, $ord_id, null, null);
+
+	return $return;
+}
+
 ?>

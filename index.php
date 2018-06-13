@@ -37,15 +37,15 @@ $billing =
 array(
   array(
     'mode' => 'billing',
-    'firstname' => 'first name',
-    'lastname' => 'last name',
-    'street' => 'street address',
-    'city' => 'city',
-    'region' => 'region',
-    'postcode' => 'postcode',
-    'country_id' => 'US',
-    'telephone' => '123456789',
-    'is_default_billing' => 1
+    'firstname' => 'Teste Magento',
+    'lastname' => 'Testando',
+    'street' => 'Rua Ficticia para Teste',
+    'city' => 'Ficticio de Teste',
+    'region' => 'SP',
+    'postcode' => '12123456',
+    'country_id' => 'BR',
+    'telephone' => '11985655215',
+
   ));
 
 $cust = array(
@@ -55,6 +55,16 @@ $cust = array(
     "mode" => "guest"
       );
 
+$payment = array(
+    'po_number' => null,
+    'method' => 'checkmo',
+    'cc_cid' => null,
+    'cc_owner' => null,
+    'cc_number' => null,
+    'cc_type' => null,
+    'cc_exp_year' => null,
+    'cc_exp_month' => null
+    );
   // var_dump($prods);
 
   $carrinho = magento_shoppingCartCreate();
@@ -66,12 +76,19 @@ $cust = array(
   echo "Lista shoppingCartProductList: <br>";
   $lista_carrinho = magento_shoppingCartProductList($carrinho);
   var_dump($lista_carrinho);
-  echo "# de intens shoppingCartProductList: ".count($lista_carrinho)." <br>";
+  echo "# de itens shoppingCartProductList: ".count($lista_carrinho)." <br>";
   var_dump($cust);
-  echo "Cutomer Set: ".magento_shoppingCartCustomerSet($carrinho,$cust)." <br>";
+  echo "Customer Set: ".magento_shoppingCartCustomerSet($carrinho,$cust)." <br>";
 
   var_dump($billing);
-  echo "Billing Set: ".shoppingCartCustomerAddresses($carrinho,$billing)." <br>";
+  echo "Billing Set: ".magento_shoppingCartCustomerAddresses($carrinho,$billing)." <br>";
+
+  echo "Cart Shipping: ".magento_shoppingCartShippingMethod($carrinho)."<br>";
+
+  echo "Dados de pagamento: ".magento_shoppingCartPaymentMethod($carrinho, $payment)."<br>";
+  var_dump($payment);
+
+  echo "Cart Order: ".var_dump(magento_shoppingCartOrder($carrinho))."<br>";
 
 
   ?>
