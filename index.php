@@ -89,6 +89,4 @@ $payment = array(
   var_dump($payment);
 
   echo "Cart Order: ".var_dump(magento_shoppingCartOrder($carrinho))."<br>";
-
-
   ?>

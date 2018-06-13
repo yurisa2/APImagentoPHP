@@ -237,9 +237,8 @@ function magento_shoppingCartOrder($ord_id)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return =  $obj_magento->shoppingCartOrder($session, $ord_id, null, null);
+	$return =  $obj_magento->shoppingCartOrder($session, $ord_id);
 
 	return $return;
 }
-
 ?>
