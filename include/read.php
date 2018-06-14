@@ -231,34 +231,47 @@ function magento_customerCustomerList($id)
   $obj_magento = magento_obj();
   $session = magento_session();
 
-  $obj_mag = $obj_magento->customerAddressList($session, $id);
-  $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id);
-  $obj_mag = $obj_mag['0'];
+  $obj_mag = $obj_magento->customerCustomerList($session, $id);
+  // $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id);
+  // var_dump($obj_mag);
+  //$obj_mag = $obj_mag['0'];
+  //
+  // $name = $obj_mag->firstname." ".$obj_mag->lastname;
+  // $email = $obj_mag_email->email;
+  // $document = preg_replace('/\D/', '',$obj_mag_email->taxvat);
+  // $city = $obj_mag->city;
+  // $region = $obj_mag->region;
+  // $postcode = preg_replace('/\D/', '',$obj_mag->postcode);
+  // $street = $obj_mag->street;
+  // $phone = preg_replace('/\D/', '',$obj_mag->telephone);
 
-  $name = $obj_mag->firstname." ".$obj_mag->lastname;
-  $email = $obj_mag_email->email;
-  $document = preg_replace('/\D/', '',$obj_mag_email->taxvat);
-  $city = $obj_mag->city;
-  $region = $obj_mag->region;
-  $postcode = preg_replace('/\D/', '',$obj_mag->postcode);
-  $street = $obj_mag->street;
-  $phone = preg_replace('/\D/', '',$obj_mag->telephone);
 
+  // $return = array(
+  //   'name' => $name,
+  //   'email' => $email,
+  //   'document' => $document,
+  //   'city' => $city,
+  //   'region' => $region,
+  //   'postcode' => $postcode,
+  //   'street' => $street,
+  //   'phone' => $phone,
+  // );
 
-  $return = array(
-    'name' => $name,
-    'email' => $email,
-    'document' => $document,
-    'city' => $city,
-    'region' => $region,
-    'postcode' => $postcode,
-    'street' => $street,
-    'phone' => $phone,
-  );
-
-  return $return;
+  return $obj_mag;
 }
 
+function magento_customerCustomerCreate($cust)
+{
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+
+  $result = $obj_magento->customerCustomerCreate($session,$cust);
+
+  return $result;
+}
 
 function magento_product_summary($sku)
 {

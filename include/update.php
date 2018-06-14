@@ -212,7 +212,7 @@ function magento_shoppingCartShippingMethod($ord_id)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return =  $obj_magento->shoppingCartShippingMethod($session, $ord_id, 'freeshipping_freeshipping');
+	$return =  $obj_magento->shoppingCartShippingMethod($session, $ord_id, 'flatrate_flatrate');
 
 	return $return;
 }
@@ -238,6 +238,32 @@ function magento_shoppingCartOrder($ord_id)
 	$session = magento_session();
 
 	$return =  $obj_magento->shoppingCartOrder($session, $ord_id);
+
+	return $return;
+}
+
+function magento_shoppingCartPaymentList($carrinho)
+{
+	global $magento_soap_user;
+	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$return =  $obj_magento->shoppingCartPaymentList($session, $carrinho);
+
+	return $return;
+}
+
+function magento_shoppingCartInfo($carrinho)
+{
+	global $magento_soap_user;
+	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$return =  $obj_magento->shoppingCartInfo($session, $carrinho);
 
 	return $return;
 }

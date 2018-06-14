@@ -28,10 +28,40 @@ echo '<pre>';
 
 // var_dump(magento_shoppingCartCreate());
 
+
 $prods = array(
   array('EP-51-40983','1'),
   array('EP-51-40654','4')
 );
+
+$address = array(
+        array(
+            'mode' => 'shipping',
+            'firstname' => 'Teste Magento',
+            'lastname' => 'Teste Magento',
+            'street' => 'street address',
+            'city' => 'Ficticio de Teste',
+            'region' => 'SP',
+            'telephone' => '34343434343434',
+            'postcode' => 'postcode',
+            'country_id' => 'BR',
+            'is_default_shipping' => 0,
+            'is_default_billing' => 0
+        ),
+        array(
+            'mode' => 'billing',
+            'firstname' => 'Teste Magento',
+            'lastname' => 'Teste Magento',
+            'street' => 'street address',
+            'city' => 'Ficticio de Teste',
+            'region' => 'SP',
+            'telephone' => '34343434343434',
+            'postcode' => 'postcode',
+            'country_id' => 'BR',
+            'is_default_shipping' => 0,
+            'is_default_billing' => 0
+        ),
+    );
 
 $billing =
 array(
@@ -45,8 +75,19 @@ array(
     'postcode' => '12123456',
     'country_id' => 'BR',
     'telephone' => '11985655215',
-
+    'is_default_billing' => 1
   ));
+
+// $customerCreate = array(
+//   'email' => 'cust-tst-mail@example.org',
+//   'firstname' => 'Dough',
+//   'lastname' => 'Deeks',
+//   'password' => 'password',
+//   'website_id' => 1,
+//   'store_id' => 1,
+//   'group_id' => 1);
+//
+// var_dump(magento_customerCustomerCreate($customerCreate));
 
 $cust = array(
     "firstname" => "testFirstname",
@@ -67,7 +108,16 @@ $payment = array(
     );
   // var_dump($prods);
 
+
   $carrinho = magento_shoppingCartCreate();
+
+
+echo "Customer List: <br>";
+$id = magento_session();
+
+// $obj_cust = magento_customerCustomerList($id);
+// $obj_cust = (array) $obj_cust;
+// var_dump($obj_cust);
 
   echo "Retorno cartProdAdd: <br>";
   var_dump(magento_shoppingCartProductAdd($carrinho,$prods));
@@ -77,16 +127,17 @@ $payment = array(
   $lista_carrinho = magento_shoppingCartProductList($carrinho);
   var_dump($lista_carrinho);
   echo "# de itens shoppingCartProductList: ".count($lista_carrinho)." <br>";
-  var_dump($cust);
+  //var_dump($cust);
   echo "Customer Set: ".magento_shoppingCartCustomerSet($carrinho,$cust)." <br>";
 
   var_dump($billing);
-  echo "Billing Set: ".magento_shoppingCartCustomerAddresses($carrinho,$billing)." <br>";
+  echo "Billing Set: ".magento_shoppingCartCustomerAddresses($carrinho,$address)." <br>";
 
   echo "Cart Shipping: ".magento_shoppingCartShippingMethod($carrinho)."<br>";
 
   echo "Dados de pagamento: ".magento_shoppingCartPaymentMethod($carrinho, $payment)."<br>";
   var_dump($payment);
 
+// var_dump(magento_shoppingCartInfo($carrinho));
   echo "Cart Order: ".var_dump(magento_shoppingCartOrder($carrinho))."<br>";
   ?>
