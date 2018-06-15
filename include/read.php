@@ -231,33 +231,32 @@ function magento_customerCustomerList($id)
   $obj_magento = magento_obj();
   $session = magento_session();
 
-  $obj_mag = $obj_magento->customerCustomerList($session, $id);
-  // $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id);
-  // var_dump($obj_mag);
-  //$obj_mag = $obj_mag['0'];
-  //
-  // $name = $obj_mag->firstname." ".$obj_mag->lastname;
-  // $email = $obj_mag_email->email;
-  // $document = preg_replace('/\D/', '',$obj_mag_email->taxvat);
-  // $city = $obj_mag->city;
-  // $region = $obj_mag->region;
-  // $postcode = preg_replace('/\D/', '',$obj_mag->postcode);
-  // $street = $obj_mag->street;
-  // $phone = preg_replace('/\D/', '',$obj_mag->telephone);
+  $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id);
+  var_dump($obj_mag);
+  $obj_mag = $obj_mag['0'];
+
+  $name = $obj_mag->firstname." ".$obj_mag->lastname;
+  $email = $obj_mag_email->email;
+  $document = preg_replace('/\D/', '',$obj_mag_email->taxvat);
+  $city = $obj_mag->city;
+  $region = $obj_mag->region;
+  $postcode = preg_replace('/\D/', '',$obj_mag->postcode);
+  $street = $obj_mag->street;
+  $phone = preg_replace('/\D/', '',$obj_mag->telephone);
 
 
-  // $return = array(
-  //   'name' => $name,
-  //   'email' => $email,
-  //   'document' => $document,
-  //   'city' => $city,
-  //   'region' => $region,
-  //   'postcode' => $postcode,
-  //   'street' => $street,
-  //   'phone' => $phone,
-  // );
+  $return = array(
+    'name' => $name,
+    'email' => $email,
+    'document' => $document,
+    'city' => $city,
+    'region' => $region,
+    'postcode' => $postcode,
+    'street' => $street,
+    'phone' => $phone,
+  );
 
-  return $obj_mag;
+  return $return;
 }
 
 function magento_customerCustomerCreate($cust)
