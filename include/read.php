@@ -315,14 +315,26 @@ function magento_product_summary($sku)
   return $return;
 }
 
-function magento_shoppingCartProductList($cart_id)
+function magento_shoppingCartProductList($cart_id,$store_id)
 {
   global $magento_soap_user;
   global $magento_soap_password;
 
   $obj_magento = magento_obj();
   $session = magento_session();
-  $result = $obj_magento->shoppingCartProductList($session,$cart_id);
+  $result = $obj_magento->shoppingCartProductList($session,$cart_id,$store_id);
+
+  return $result;
+}
+
+function magento_StoreList()
+{
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+  $result = $obj_magento->StoreList($session);
 
   return $result;
 }

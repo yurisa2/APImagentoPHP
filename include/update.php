@@ -142,7 +142,7 @@ function magento_salesOrderAddComment($mod)
 	return $return;
 }
 
-function magento_shoppingCartProductAdd($cart_id,$prods)
+function magento_shoppingCartProductAdd($cart_id,$prods,$store_id)
 {
 	//$prods Array template
 	// array(
@@ -171,14 +171,14 @@ function magento_shoppingCartProductAdd($cart_id,$prods)
 		// var_dump($shoppingCartProductEntity); //DEBUG
 
 	}
-	$result_prod_add = $obj_magento->shoppingCartProductAdd($session,$cart_id,$shoppingCartProductEntity);
+	$result_prod_add = $obj_magento->shoppingCartProductAdd($session,$cart_id,$shoppingCartProductEntity,$store_id);
 	if($result_prod_add) $return++;
 	// var_dump($return);
 
 	return $return;
 }
 
-function magento_shoppingCartCustomerSet($ord_id,$cust)
+function magento_shoppingCartCustomerSet($ord_id,$cust,$store_id)
 {
 	global $magento_soap_user;
 	global $magento_soap_password;
@@ -186,12 +186,12 @@ function magento_shoppingCartCustomerSet($ord_id,$cust)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return = $obj_magento->shoppingCartCustomerSet($session, $ord_id, $cust);
+	$return = $obj_magento->shoppingCartCustomerSet($session, $ord_id, $cust,$store_id);
 
 	return $return;
 }
 
-function magento_shoppingCartCustomerAddresses($ord_id,$billing)
+function magento_shoppingCartCustomerAddresses($ord_id,$billing,$store_id)
 {
 	global $magento_soap_user;
 	global $magento_soap_password;
@@ -199,12 +199,12 @@ function magento_shoppingCartCustomerAddresses($ord_id,$billing)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return = $obj_magento->shoppingCartCustomerAddresses($session, $ord_id, $billing);
+	$return = $obj_magento->shoppingCartCustomerAddresses($session, $ord_id, $billing,$store_id);
 
 	return $return;
 }
 
-function magento_shoppingCartShippingMethod($ord_id)
+function magento_shoppingCartShippingMethod($ord_id, $store_id )
 {
 	global $magento_soap_user;
 	global $magento_soap_password;
@@ -212,24 +212,24 @@ function magento_shoppingCartShippingMethod($ord_id)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return =  $obj_magento->shoppingCartShippingMethod($session, $ord_id, 'flatrate_flatrate');
+	$return =  $obj_magento->shoppingCartShippingMethod($session, $ord_id, "freeshipping_freeshipping", $store_id);
 
 	return $return;
 }
 
-function magento_shoppingCartPaymentMethod($ord_id, $payment){
+function magento_shoppingCartPaymentMethod($ord_id, $payment, $store_id){
 	global $magento_soap_user;
 	global $magento_soap_password;
 
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return =  $obj_magento->shoppingCartPaymentMethod($session, $ord_id, $payment);
+	$return =  $obj_magento->shoppingCartPaymentMethod($session, $ord_id, $payment,$store_id);
 
 	return $return;
 }
 
-function magento_shoppingCartOrder($ord_id)
+function magento_shoppingCartOrder($ord_id, $store_id)
 {
 	global $magento_soap_user;
 	global $magento_soap_password;
@@ -237,12 +237,12 @@ function magento_shoppingCartOrder($ord_id)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return =  $obj_magento->shoppingCartOrder($session, $ord_id);
+	$return =  $obj_magento->shoppingCartOrder($session, $ord_id,$store_id);
 
 	return $return;
 }
 
-function magento_shoppingCartPaymentList($carrinho)
+function magento_shoppingCartPaymentList($carrinho, $store_id)
 {
 	global $magento_soap_user;
 	global $magento_soap_password;
@@ -250,7 +250,20 @@ function magento_shoppingCartPaymentList($carrinho)
 	$obj_magento = magento_obj();
 	$session = magento_session();
 
-	$return =  $obj_magento->shoppingCartPaymentList($session, $carrinho);
+	$return =  $obj_magento->shoppingCartPaymentList($session, $carrinho, $store_id);
+
+	return $return;
+}
+
+function magento_shoppingCartShippingList($carrinho, $store_id)
+{
+	global $magento_soap_user;
+	global $magento_soap_password;
+
+	$obj_magento = magento_obj();
+	$session = magento_session();
+
+	$return =  $obj_magento->shoppingCartShippingList($session, $carrinho, $store_id);
 
 	return $return;
 }
@@ -267,4 +280,17 @@ function magento_shoppingCartInfo($carrinho)
 
 	return $return;
 }
+
+// function magento_salesOrderAddComment($order_id, $status, $comment)
+// {
+// 	global $magento_soap_user;
+// 	global $magento_soap_password;
+//
+// 	$obj_magento = magento_obj();
+// 	$session = magento_session();
+//
+// 	$return =  $obj_magento->salesOrderAddComment($session, $order_id, $status, $comment);
+//
+// 	return $return;
+// }
 ?>
