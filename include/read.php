@@ -231,8 +231,10 @@ function magento_customerCustomerList($id)
   $obj_magento = magento_obj();
   $session = magento_session();
 
+  $obj_mag = $obj_magento->customerAddressList($session, $id);
+
+
   $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id);
-  var_dump($obj_mag);
   $obj_mag = $obj_mag['0'];
 
   $name = $obj_mag->firstname." ".$obj_mag->lastname;
