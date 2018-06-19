@@ -42,8 +42,8 @@ $dadosVenda->pais = "BR";
 //PEGAR O ID DO PAIS -- COUNTRY_ID
 // -------USUARIO --------
 $dadosVenda->id_comprador = "123213";
-$dadosVenda->apelido_comprador = "Zé do Teste";
-$dadosVenda->email_comprador = "testemagentoorder5@mail.com";
+$dadosVenda->apelido_comprador = "Filho do Zéfilho do Teste";
+$dadosVenda->email_comprador = "testemagentoorder7@mail.com";
 $dadosVenda->cod_area_comprador = "11";
 $dadosVenda->telefone_comprador = "123456789";
 $dadosVenda->nome_comprador = "Teste do order";
@@ -55,7 +55,6 @@ $dadosVenda->numero_documento_comprador = "123456789";
 $DEBUG =TRUE;
 
 $teste = new Magento_order($dadosVenda);
-
 
 var_dump($teste);
 
@@ -230,7 +229,7 @@ var_dump($teste);
 // // var_dump(magento_shoppingCartInfo($carrinho));
 // $order_id = magento_shoppingCartOrder($carrinho,$store_id);
 // echo "Cart Order: ".$order_id."<br>";
-//
+
 //
 //   //var_dump(magento_StoreList());
 // $mod_email= array(

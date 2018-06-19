@@ -18,11 +18,11 @@ public function Magento_order($dadosVenda)
   $this->data->preco_total_produto = $dadosVenda->preco_total_produto;
 
   //--------------PAGAMENTO---------
-  $this->data->id_meio_pagamento= $dadosVenda->id_meio_pagamento;
-  $this->data->tipo_pagamento= $dadosVenda->tipo_pagamento;
-  $this->data->custo_envio= $dadosVenda->custo_envio;
-  $this->data->total_pagar= $dadosVenda->total_pagar;
-  $this->data->status_pagamento= $dadosVenda->status_pagamento;
+  $this->data->id_meio_pagamento = $dadosVenda->id_meio_pagamento;
+  $this->data->tipo_pagamento = $dadosVenda->tipo_pagamento;
+  $this->data->custo_envio = $dadosVenda->custo_envio;
+  $this->data->total_pagar = $dadosVenda->total_pagar;
+  $this->data->status_pagamento = $dadosVenda->status_pagamento;
 
   //-----------ENDEREÇO---------
   $this->data->rua = $dadosVenda->rua;
@@ -67,14 +67,27 @@ public function Magento_order($dadosVenda)
     'website_id' => "2"
   );
 
-  $id_customer = $obj_magento->customerCustomerCreate($session,$customer);
+  $complexFilter = array(
+    'complex_filter' => array(
+        array(
+            'key' => 'email',
+            'value' => array('key' => 'in', 'value' => $customer['email'])
+        )
+    )
+  );
 
-if($id_customer['faultcode'] == 100){
+  $return = $obj_magento->customerCustomerList($session, $complexFilter);
 
-}
-
-  if($DEBUG == TRUE) var_dump($id_customer);
-//}
+  if(!$return){
+    $id_customer = $obj_magento->customerCustomerCreate($session, $customer);
+    if($DEBUG == TRUE) var_dump($id_customer);
+  }
+  else
+  {
+    $id_customer = $return[0]->customer_id;
+    if($DEBUG == TRUE) var_dump($id_customer);
+    if($DEBUG == TRUE) var_dump($return);
+  }
 
 // function magento_customerAddressCreate($id_customer)
 // {
@@ -83,12 +96,12 @@ if($id_customer['faultcode'] == 100){
   $customer_address = array(
   'firstname' => $this->data->nome_comprador,
   'lastname' => $this->data->sobrenome_comprador,
-  'street' => array($this->data->rua.", ".$this->data->numero."-".$this->data->bairro,'' ),
+  'street' => array($this->data->rua.", ".$this->data->numero." - ".$this->data->bairro,'' ),
   'city' => $this->data->cidade,
   'country_id' => $this->data->pais,
   'region' => $this->data->estado,
   'postcode' => $this->data->cep,
-  'telephone' => $this->data->telefone_comprador,
+  'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
   'is_default_billing' => FALSE,
   'is_default_shipping' => FALSE);
 
@@ -229,7 +242,7 @@ if($id_customer['faultcode'] == 100){
       'mode' => 'billing',
       'firstname' => $this->data->nome_comprador,
       'lastname' => $this->data->sobrenome_comprador,
-      'street' => $this->data->rua.", ".$this->data->numero."-".$this->data->bairro,
+      'street' => $this->data->rua.", ".$this->data->numero." - ".$this->data->bairro,
       'city' => $this->data->cidade,
       'region' => $this->data->estado,
       'postcode' => $this->data->cep,
