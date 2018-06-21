@@ -61,7 +61,7 @@ public function Magento_order($dadosVenda)
     'lastname' => $this->data->sobrenome_comprador,
     'email' => $this->data->email_comprador,
     'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
-    'taxvat' => $this->data->tipo_documento_comprador.": ".$this->data->numero_documento_comprador,
+    'taxvat' => $this->data->numero_documento_comprador,
     'group_id' => "1",
     'store_id' => "21",
     'website_id' => "2"
