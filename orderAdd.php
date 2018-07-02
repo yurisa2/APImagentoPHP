@@ -1,7 +1,6 @@
 <?php
 
-class Magento_order
-{
+class Magento_order{
 /**
 * Construtor. Set properties in Magento_order
 * @param object data;
@@ -47,6 +46,8 @@ public function Magento_order($dadosVenda)
 
 // function magento_customerCustomerCreate()
 // {
+
+
   global $magento_soap_user;
   global $magento_soap_password;
   global $store_id;
@@ -85,6 +86,7 @@ public function Magento_order($dadosVenda)
   else
   {
     $id_customer = $return[0]->customer_id;
+    echo "<h1>id Customer</h1>";
     if($DEBUG == TRUE) var_dump($id_customer);
     if($DEBUG == TRUE) var_dump($return);
   }
@@ -106,12 +108,12 @@ public function Magento_order($dadosVenda)
     var_dump($customer_address);
   $return = $obj_magento->customerAddressCreate($session, $id_customer, $customer_address);
 
-  if($DEBUG == TRUE) echo "AddressesCreate".$return;
+  if($DEBUG == TRUE) echo "<h1>AddressesCreate ".$return."</h1>";
 
 
   $obj_mag = $obj_magento->customerAddressList($session, $id_customer);
 
-  if($DEBUG == TRUE) echo "<h1>addressesList</h1>";var_dump($obj_mag);
+   if($DEBUG == TRUE) echo "<h1>addressesList</h1>";var_dump($obj_mag);
 
   $obj_mag_email = $obj_magento->customerCustomerInfo($session, $id_customer);
   $obj_mag = $obj_mag['0'];
@@ -140,52 +142,54 @@ public function Magento_order($dadosVenda)
   );
 
   if($DEBUG == true) echo "<h1>Array Customer</h1>";var_dump($return);
-    
-   
-    
+
+
+
 // function magento_shoppingCartCreate($store_id)
 
 	$cart_id = $obj_magento->shoppingCartCreate($session, $store_id);
 
 	if($DEBUG == TRUE) echo "<h1>shoppingCartCreate</h1>";var_dump($cart_id);
 
+
     $return = $obj_magento->storeInfo($session, $store_id);
-              
+
     echo "storeInfo Ativos: ";
     var_dump($return);
-    
-       
+
+
 // function magento_shoppingCartProductAdd($cart_id, $store_id)
 
 	$return = 0;
 
 	foreach ($this->data->sku_produto as $key => $value) {
-          
-        $shoppingCartProductEntity[$key] = array($this->data->sku_produto[$key],$this->data->qtd_produto[$key]);
-        
-        
+
+        $shoppingCartProductEntity[$key] = array(
+          'sku' => $this->data->sku_produto[$key],
+          'qty' => $this->data->qtd_produto[$key]);
+
+
 }
 		if($DEBUG == TRUE) echo "<h1>shoppingCartEntity</h1>";var_dump($shoppingCartProductEntity); //DEBUG
 
-  
+
 
   $result_prod_add = $obj_magento->shoppingCartProductAdd($session, $cart_id, $shoppingCartProductEntity, $store_id);
 	if($result_prod_add) $return++;
 
-	if($DEBUG == TRUE) echo "<h1>shoppingCartProductAdd</h1>";var_dump($return);
+	if($DEBUG == TRUE) echo "<h1>shoppingCartProductAdd</h1>";var_dump($result_prod_add);
 
 
-    
-    
+
 // function magento_shoppingCartProductList($cart_id, $store_id)
+  //
+  // $result = $obj_magento->shoppingCartProductList($session, $cart_id, $store_id);
+  //
+  // 	if($DEBUG == TRUE) echo "<h1>shoppingCartProductList</h1>";var_dump($result);
+  //
 
-  $result = $obj_magento->shoppingCartProductList($session, $cart_id, $store_id);
-
-  	if($DEBUG == TRUE) echo "<h1>shoppingCartProductList</h1>";var_dump($result);
 
 
-    
-    
 // function magento_shoppingCartCustomerSet($cart_id, $id_customer, $store_id)
 
   $customer = array(
@@ -195,12 +199,12 @@ public function Magento_order($dadosVenda)
 
   	$return = $obj_magento->shoppingCartCustomerSet($session, $cart_id, $customer, $store_id);
 
-  	if($DEBUG == TRUE) echo "CartCustomerSet".$return;
+  	if($DEBUG == TRUE) echo "<h1>CartCustomerSet: ".$return."</h1>";
 
 
-    
-    
-    
+
+
+
 // function magento_shoppingCartCustomerAddresses($cart_id, $store_id)
 
   $billing =
@@ -215,8 +219,8 @@ public function Magento_order($dadosVenda)
       'postcode' => $this->data->cep,
       'country_id' => $this->data->pais,
       'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
-      'is_default_billing' => 0,
-      'is_default_shipping' => 0),
+      'is_default_billing' => FALSE,
+      'is_default_shipping' => FALSE),
     array(
       'mode' => 'shipping',
       'firstname' => $this->data->nome_comprador,
@@ -227,18 +231,19 @@ public function Magento_order($dadosVenda)
       'postcode' => $this->data->cep,
       'country_id' => $this->data->pais,
       'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
-      'is_default_billing' => 0,
-      'is_default_shipping' => 0)
+      'is_default_billing' => FALSE,
+      'is_default_shipping' => FALSE)
     );
 
 	$return = $obj_magento->shoppingCartCustomerAddresses($session, $cart_id, $billing, $store_id);
 
-if($DEBUG == TRUE) echo "<h1>shoppingCartCustomerAddresses</h1>";var_dump($return);
+if($DEBUG == TRUE) var_dump($return);
 
+echo "<h1>INFORMAÇÕES DA LOJA-PAYMENT:</h1> <BR>";
+var_dump($obj_magento->shoppingCartPaymentList($session, $cart_id, $store_id));
+echo "<h1>INFORMAÇÕES DA LOJA-SHIPPING:</h1> <BR>";
+var_dump($obj_magento->shoppingCartShippingList($session, $cart_id, $store_id));
 
-        echo "<h1>INFORMAÇÕES DA LOJA-SHIPPING:</h1> <BR>";
-        var_dump($obj_magento->shoppingCartShippingList($session, $cart_id, $store_id));
-    
 // function magento_shoppingCartShippingMethod($cart_id, $store_id)
 
 	$return =  $obj_magento->shoppingCartShippingMethod($session, $cart_id, $shipping_method, $store_id);
@@ -260,7 +265,9 @@ if($DEBUG == TRUE) echo "<h1>shoppingCartCustomerAddresses</h1>";var_dump($retur
 
 	if($DEBUG == TRUE) echo "<h1>ShoppingCartPaymentMetod</h1>";var_dump($return);
 
-        
+
+
+
 // function magento_shoppingCartOrder($cart_id, $store_id)
 
 	$order_id =  $obj_magento->shoppingCartOrder($session, $cart_id, $store_id);
@@ -268,14 +275,11 @@ if($DEBUG == TRUE) echo "<h1>shoppingCartCustomerAddresses</h1>";var_dump($retur
 if($DEBUG == TRUE) echo "<h1>shoppingCartOrder</h1>";var_dump($order_id);
 
 
-        echo "<h1>INFORMAÇÕES DA LOJA-PAYMENT:</h1> <BR>";
-        var_dump($obj_magento->shoppingCartPaymentList($session, $cart_id, $store_id));
-    
-    
+
 // function magento_salesOrderAddComment($order_id, $status, $comment)
-
-  $comment = 'Id do Pedido MLB: '.$this->data->id_order;
-
+foreach ($this->data->id_order as $key =>$value){
+  $comment[$key] = 'Id do Pedido MLB: '.$this->data->id_order[$key];
+}
 	$return = $obj_magento->salesOrderAddComment($session, $order_id, 'pending', $comment, null);
 
 if($DEBUG == TRUE) echo "<h1>salesOrderAddComment</h1>";var_dump($return);
