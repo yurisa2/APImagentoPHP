@@ -82,6 +82,23 @@ public function Magento_order($dadosVenda)
   if(!$return){
     $id_customer = $obj_magento->customerCustomerCreate($session, $customer);
     if($DEBUG == TRUE) echo "<h1>id Customer</h1>";var_dump($id_customer);
+
+    $customer_address = array(
+    'firstname' => $this->data->nome_comprador,
+    'lastname' => $this->data->sobrenome_comprador,
+    'street' => array($this->data->rua.", ".$this->data->numero." - ".$this->data->bairro,'' ),
+    'city' => $this->data->cidade,
+    'country_id' => $this->data->pais,
+    'region' => $this->data->estado,
+    'postcode' => $this->data->cep,
+    'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
+    'is_default_billing' => FALSE,
+    'is_default_shipping' => FALSE);
+
+      var_dump($customer_address);
+    $return = $obj_magento->customerAddressCreate($session, $id_customer, $customer_address);
+
+    if($DEBUG == TRUE) echo "<h1>AddressesCreate ".$return."</h1>";
   }
   else
   {
@@ -92,23 +109,6 @@ public function Magento_order($dadosVenda)
   }
 
 // function magento_customerAddressCreate($id_customer)
-
-  $customer_address = array(
-  'firstname' => $this->data->nome_comprador,
-  'lastname' => $this->data->sobrenome_comprador,
-  'street' => array($this->data->rua.", ".$this->data->numero." - ".$this->data->bairro,'' ),
-  'city' => $this->data->cidade,
-  'country_id' => $this->data->pais,
-  'region' => $this->data->estado,
-  'postcode' => $this->data->cep,
-  'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
-  'is_default_billing' => FALSE,
-  'is_default_shipping' => FALSE);
-
-    var_dump($customer_address);
-  $return = $obj_magento->customerAddressCreate($session, $id_customer, $customer_address);
-
-  if($DEBUG == TRUE) echo "<h1>AddressesCreate ".$return."</h1>";
 
 
   $obj_mag = $obj_magento->customerAddressList($session, $id_customer);
@@ -252,7 +252,7 @@ var_dump($obj_magento->shoppingCartShippingList($session, $cart_id, $store_id));
 
   $payment = array(
       'po_number' => null,
-     'method' => 'cashondelivery',
+     'method' => 'free',
      'cc_cid' => null,
      'cc_owner' => null,
      'cc_number' => null,
@@ -278,9 +278,9 @@ if($DEBUG == TRUE) echo "<h1>shoppingCartOrder</h1>";var_dump($order_id);
 
 // function magento_salesOrderAddComment($order_id, $status, $comment)
 foreach ($this->data->id_order as $key =>$value){
-  $comment[$key] = 'Id do Pedido MLB: '.$this->data->id_order[$key];
+  $comment .= "Id do Pedido MLB: ".$this->data->id_order[$key]."\n";
 }
-	$return = $obj_magento->salesOrderAddComment($session, $order_id, 'pending', $comment, null);
+	$return = $obj_magento->salesOrderAddComment($session, "2100000039", 'pending', $comment, null);
 
 if($DEBUG == TRUE) echo "<h1>salesOrderAddComment</h1>";var_dump($return);
 }
