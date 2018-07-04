@@ -81,7 +81,7 @@ public function Magento_order($dadosVenda)
 
   if(!$return){
     $id_customer = $obj_magento->customerCustomerCreate($session, $customer);
-    if($DEBUG == TRUE) echo "<h1>id Customer</h1>";var_dump($id_customer);
+    if($DEBUG == TRUE) echo "<h1>id Customer Novo</h1>";var_dump($id_customer);
 
     $customer_address = array(
     'firstname' => $this->data->nome_comprador,
@@ -92,8 +92,8 @@ public function Magento_order($dadosVenda)
     'region' => $this->data->estado,
     'postcode' => $this->data->cep,
     'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
-    'is_default_billing' => FALSE,
-    'is_default_shipping' => FALSE);
+    'is_default_billing' => TRUE,
+    'is_default_shipping' => TRUE);
 
       var_dump($customer_address);
     $return = $obj_magento->customerAddressCreate($session, $id_customer, $customer_address);
@@ -103,7 +103,7 @@ public function Magento_order($dadosVenda)
   else
   {
     $id_customer = $return[0]->customer_id;
-    echo "<h1>id Customer</h1>";
+    echo "<h1>id Customer </h1>";
     if($DEBUG == TRUE) var_dump($id_customer);
     if($DEBUG == TRUE) var_dump($return);
   }
@@ -219,7 +219,7 @@ public function Magento_order($dadosVenda)
       'postcode' => $this->data->cep,
       'country_id' => $this->data->pais,
       'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
-      'is_default_billing' => FALSE,
+      'is_default_billing' => TRUE,
       'is_default_shipping' => FALSE),
     array(
       'mode' => 'shipping',
@@ -232,7 +232,7 @@ public function Magento_order($dadosVenda)
       'country_id' => $this->data->pais,
       'telephone' => $this->data->cod_area_comprador.$this->data->telefone_comprador,
       'is_default_billing' => FALSE,
-      'is_default_shipping' => FALSE)
+      'is_default_shipping' => TRUE)
     );
 
 	$return = $obj_magento->shoppingCartCustomerAddresses($session, $cart_id, $billing, $store_id);
@@ -252,7 +252,7 @@ var_dump($obj_magento->shoppingCartShippingList($session, $cart_id, $store_id));
 
   $payment = array(
       'po_number' => null,
-     'method' => 'free',
+     'method' => 'cashondelivery',
      'cc_cid' => null,
      'cc_owner' => null,
      'cc_number' => null,
@@ -277,10 +277,14 @@ if($DEBUG == TRUE) echo "<h1>shoppingCartOrder</h1>";var_dump($order_id);
 
 
 // function magento_salesOrderAddComment($order_id, $status, $comment)
+$comment="";
 foreach ($this->data->id_order as $key =>$value){
-  $comment .= "Id do Pedido MLB: ".$this->data->id_order[$key]."\n";
+
+  $comment .= "Id do Pedido MLB: ".$this->data->id_order[$key]."\t";
 }
-	$return = $obj_magento->salesOrderAddComment($session, "2100000039", 'pending', $comment, null);
+
+var_dump($comment);
+	$return = $obj_magento->salesOrderAddComment($session, $order_id, 'pending', $comment, null);
 
 if($DEBUG == TRUE) echo "<h1>salesOrderAddComment</h1>";var_dump($return);
 }
