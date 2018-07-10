@@ -116,7 +116,7 @@ public function CustomerCreate()
       if($DEBUG == TRUE) var_dump($id_customer);
     }
 }
-public function AddressCreate($id_customer)
+public function AddressCreate()
 {
   $obj_magento = magento_obj();
   $session = magento_session();
