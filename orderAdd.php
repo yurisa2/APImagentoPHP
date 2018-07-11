@@ -270,7 +270,15 @@ class Magento_order{
 //function magento_shoppingCartOrder($cart_id, $store_id)
     $order_id = $obj_magento->shoppingCartOrder($session, $cart_id, $store_id);
 
-    if($response["httpCode"] == 200) echo "Order criado - ".$order_id;
+    if($order_id !== "")
+    {
+      echo "Order criado - ".$order_id;
+      $array_pedidos_feitos["MLB"] .= $id_pedido;
+
+      $array_pedidos_feitos = file_get_contents("include/files/PedidosFeitosMLB.json");
+      $mgnt[] = $array_pedidos_feitos["MGNT"];
+      $conteudo_arquivo = file_put_contents("include/files/PedidosFeitosMLB.json", json_encode($mgnt));
+    }
     else //mandar email;
 
     if($DEBUG == TRUE) {echo "<h1>shoppingCartOrder</h1>";var_dump($order_id);}
@@ -281,10 +289,9 @@ class Magento_order{
     {
       $comment .= "Id do Pedido MLB: ".$this->data->id_order[$key]."\t";
     }
-    if($response["httpCode"] == 200) echo "Order criado - ".var_dump($comment);
 
     $return = $obj_magento->salesOrderAddComment($session, $order_id, 'pending', $comment, null);
-    if($response["httpCode"] == 200) echo "Comentário criado";
+    if($return) echo "Comentário criado";
     if($DEBUG == TRUE)
     {
       echo "<h1>salesOrderAddComment</h1>";
