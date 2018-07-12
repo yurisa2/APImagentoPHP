@@ -290,7 +290,6 @@ function magento_product_summary($sku)
   $price = $obj_magento ->catalogProductInfo($session,$sku)->price;
   $qty = $obj_magento ->catalogInventoryStockItemList($session,array($sku))['0']->qty;
 
-
   $medialist = $obj_magento->catalogProductAttributeMediaList($session,$sku);
   $media_array = array();
   foreach ($medialist as $key => $value) {
