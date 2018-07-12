@@ -340,5 +340,17 @@ function magento_StoreList()
   return $result;
 }
 
+function magento_catalogProductAttributeMediaList($sku)
+{
+  global $magento_soap_user;
+  global $magento_soap_password;
+
+  $obj_magento = magento_obj();
+  $session = magento_session();
+
+  $medialist = $obj_magento->catalogProductAttributeMediaList($session,$sku);
+
+  return $medialist;
+}
 
 ?>
