@@ -2,10 +2,14 @@
 global $wsdl;
 global $magento_soap_user;
 global $magento_soap_password;
+global $shipping_method;
+global $store_id;
 
 
 $wsdl = '<Magento Install>/api/v2_soap?wsdl=1';  //Put here your DOMAIN
 $magento_soap_user = 'youruser';                                  // SOAP-USER
 $magento_soap_password = 'yourpassword';                              // PASSWORD  (SOAP USER)
+$shipping_method = "freeshipping_freeshipping";         //METODO DE ENVIO PADRAO DO MAGENTO
+$store_id = "21";
 
  ?>
