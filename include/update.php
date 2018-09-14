@@ -98,7 +98,10 @@ if($mod) {
 
 	$update_tier_price = $obj_magento->catalogProductAttributeTierPriceUpdate($session,$sku, $mod_update['tier_price']);
 
-	if(!empty($mod['qty_in_stock'])) {
+
+	if(!empty($mod['qty_in_stock']) || $mod['qty_in_stock'] == 0) {
+		var_dump($mod);
+
 		$qty = $mod['qty_in_stock'];
 		$is_in_stock = 1;
 		if($qty <= 0) $is_in_stock = 0;
