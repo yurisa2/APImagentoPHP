@@ -94,8 +94,9 @@ if($mod) {
 
 
 	$url_key = $sku;
+	$url_key .= "-";
 	$url_key .= str_replace(' ', '-', $mod['name']);
-	$url_key .= removeAccents($mod['name']);
+	$url_key = removeAccents($url_key);
 	$mod_update['url_key'] = $url_key;
 
 	$update_product = $obj_magento->catalogProductUpdate($session,$sku,$mod_update);
